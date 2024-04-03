@@ -21,7 +21,7 @@ from typing import TypeVar
 from typing import Union
 from typing import cast
 from typing import overload
-
+from typing import Optional
 import pytest
 
 from ._util import get_mock_module
@@ -55,11 +55,12 @@ class MockCache:
 
     cache: List[MockCacheItem] = field(default_factory=list)
 
-    def _find(self, mock: MockType) -> MockCacheItem:
+    def _find(self, mock: MockType) -> Optional[MockCacheItem]:
         for mock_item in self.cache:
             if mock_item.mock is mock:
                 return mock_item
         raise ValueError("This mock object is not registered")
+
 
     def add(self, mock: MockType, **kwargs: Any) -> MockCacheItem:
         self.cache.append(MockCacheItem(mock=mock, **kwargs))
