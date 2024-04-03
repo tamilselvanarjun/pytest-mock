@@ -25,8 +25,21 @@ def get_mock_module(config):
 
     return _mock_module
 
+from typing import Union
 
 def parse_ini_boolean(value: Union[bool, str]) -> bool:
+    """
+    Parse a boolean value from an INI file string representation.
+
+    Args:
+        value (Union[bool, str]): The value to parse, can be either a boolean or a string.
+
+    Returns:
+        bool: The parsed boolean value.
+
+    Raises:
+        ValueError: If the input value is not a valid boolean string.
+    """
     if isinstance(value, bool):
         return value
     if value.lower() == "true":
@@ -34,3 +47,4 @@ def parse_ini_boolean(value: Union[bool, str]) -> bool:
     if value.lower() == "false":
         return False
     raise ValueError("unknown string for bool: %r" % value)
+
